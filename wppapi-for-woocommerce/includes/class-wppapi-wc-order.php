@@ -109,14 +109,14 @@ class WPPAPI_WC_Order {
 		$optin = $order->get_meta( '_wppapi_whatsapp_optin' );
 
 		if ( 'yes' === $optin ) {
-			$label = __( 'Sim', 'wppapi-woocommerce' );
+			$label = __( 'Sim', 'wppapi-for-woocommerce' );
 		} elseif ( 'no' === $optin ) {
-			$label = __( 'Não', 'wppapi-woocommerce' );
+			$label = __( 'Não', 'wppapi-for-woocommerce' );
 		} else {
-			$label = __( 'Não informado', 'wppapi-woocommerce' );
+			$label = __( 'Não informado', 'wppapi-for-woocommerce' );
 		}
 
-		echo '<p><strong>' . esc_html__( 'Opt-in WhatsApp:', 'wppapi-woocommerce' ) . '</strong> ' . esc_html( $label ) . '</p>';
+		echo '<p><strong>' . esc_html__( 'Opt-in WhatsApp:', 'wppapi-for-woocommerce' ) . '</strong> ' . esc_html( $label ) . '</p>';
 	}
 
 	/**
@@ -131,7 +131,7 @@ class WPPAPI_WC_Order {
 		foreach ( array_unique( $screens ) as $screen ) {
 			add_meta_box(
 				'wppapi-wc-shipping',
-				__( 'WhatsApp (WPPAPI) — Envio', 'wppapi-woocommerce' ),
+				__( 'WhatsApp (WPPAPI) — Envio', 'wppapi-for-woocommerce' ),
 				array( __CLASS__, 'render_meta_box' ),
 				$screen,
 				'side',
@@ -164,7 +164,7 @@ class WPPAPI_WC_Order {
 		);
 		?>
 		<p>
-			<label for="wppapi_tracking_code"><strong><?php esc_html_e( 'Código de rastreio', 'wppapi-woocommerce' ); ?></strong></label>
+			<label for="wppapi_tracking_code"><strong><?php esc_html_e( 'Código de rastreio', 'wppapi-for-woocommerce' ); ?></strong></label>
 			<input type="text" id="wppapi_tracking_code" name="wppapi_tracking_code" value="<?php echo esc_attr( $tracking ); ?>" class="widefat" />
 		</p>
 		<?php if ( '' === $tracking && '' !== $external ) : ?>
@@ -172,17 +172,17 @@ class WPPAPI_WC_Order {
 				<?php
 				printf(
 					/* translators: %s: código de rastreio detectado de outro plugin. */
-					esc_html__( 'Rastreio detectado de outro plugin: %s', 'wppapi-woocommerce' ),
+					esc_html__( 'Rastreio detectado de outro plugin: %s', 'wppapi-for-woocommerce' ),
 					esc_html( $external )
 				);
 				?>
 			</p>
 		<?php endif; ?>
 		<p>
-			<a href="<?php echo esc_url( $notify ); ?>" class="button button-primary" id="wppapi-wc-notify-shipped"><?php esc_html_e( 'Salvar e notificar envio', 'wppapi-woocommerce' ); ?></a>
+			<a href="<?php echo esc_url( $notify ); ?>" class="button button-primary" id="wppapi-wc-notify-shipped"><?php esc_html_e( 'Salvar e notificar envio', 'wppapi-for-woocommerce' ); ?></a>
 		</p>
 		<p class="description">
-			<?php esc_html_e( 'O código é salvo ao atualizar o pedido. O botão salva o valor digitado e enfileira a mensagem do evento "Pedido enviado" (somente se houver opt-in).', 'wppapi-woocommerce' ); ?>
+			<?php esc_html_e( 'O código é salvo ao atualizar o pedido. O botão salva o valor digitado e enfileira a mensagem do evento "Pedido enviado" (somente se houver opt-in).', 'wppapi-for-woocommerce' ); ?>
 		</p>
 		<script>
 		( function() {
@@ -228,7 +228,7 @@ class WPPAPI_WC_Order {
 	 * Bloqueia acesso anônimo ao endpoint de notificação.
 	 */
 	public static function deny_anonymous() {
-		wp_die( esc_html__( 'Permissão negada.', 'wppapi-woocommerce' ) );
+		wp_die( esc_html__( 'Permissão negada.', 'wppapi-for-woocommerce' ) );
 	}
 
 	/**
@@ -236,18 +236,18 @@ class WPPAPI_WC_Order {
 	 */
 	public static function handle_mark_shipped() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Permissão negada.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Permissão negada.', 'wppapi-for-woocommerce' ) );
 		}
 
 		$order_id = isset( $_GET['order_id'] ) ? absint( $_GET['order_id'] ) : 0;
 		if ( ! $order_id ) {
-			wp_die( esc_html__( 'Pedido não encontrado.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Pedido não encontrado.', 'wppapi-for-woocommerce' ) );
 		}
 		check_admin_referer( 'wppapi_wc_mark_shipped_' . $order_id );
 
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
-			wp_die( esc_html__( 'Pedido não encontrado.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Pedido não encontrado.', 'wppapi-for-woocommerce' ) );
 		}
 
 		if ( isset( $_GET['tracking_code'] ) ) {
@@ -257,7 +257,7 @@ class WPPAPI_WC_Order {
 			}
 		}
 
-		$order->add_order_note( __( 'Pedido marcado como enviado; notificação WhatsApp enfileirada (WPPAPI).', 'wppapi-woocommerce' ) );
+		$order->add_order_note( __( 'Pedido marcado como enviado; notificação WhatsApp enfileirada (WPPAPI).', 'wppapi-for-woocommerce' ) );
 		$order->save();
 
 		WPPAPI_WC_Messenger::queue( $order_id, 'shipped' );

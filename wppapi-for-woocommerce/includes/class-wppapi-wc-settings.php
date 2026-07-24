@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class WPPAPI_WC_Settings {
 
-	const SLUG = 'wppapi-woocommerce';
+	const SLUG = 'wppapi-for-woocommerce';
 
 	/**
 	 * Registra menu e handlers de admin-post.
@@ -30,8 +30,8 @@ class WPPAPI_WC_Settings {
 	public static function register_menu() {
 		add_submenu_page(
 			'woocommerce',
-			__( 'WPPAPI', 'wppapi-woocommerce' ),
-			__( 'WPPAPI', 'wppapi-woocommerce' ),
+			__( 'WPPAPI', 'wppapi-for-woocommerce' ),
+			__( 'WPPAPI', 'wppapi-for-woocommerce' ),
 			'manage_woocommerce',
 			self::SLUG,
 			array( __CLASS__, 'render_page' )
@@ -68,7 +68,7 @@ class WPPAPI_WC_Settings {
 	 */
 	public static function handle_save() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Permissão negada.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Permissão negada.', 'wppapi-for-woocommerce' ) );
 		}
 		check_admin_referer( 'wppapi_wc_save_settings' );
 
@@ -106,7 +106,7 @@ class WPPAPI_WC_Settings {
 
 		update_option( 'wppapi_wc_settings', $settings, false );
 
-		self::set_notice( 'success', __( 'Configurações salvas.', 'wppapi-woocommerce' ) );
+		self::set_notice( 'success', __( 'Configurações salvas.', 'wppapi-for-woocommerce' ) );
 		self::redirect();
 	}
 
@@ -115,14 +115,14 @@ class WPPAPI_WC_Settings {
 	 */
 	public static function handle_test() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Permissão negada.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Permissão negada.', 'wppapi-for-woocommerce' ) );
 		}
 		check_admin_referer( 'wppapi_wc_test_connection' );
 
 		$settings = wppapi_wc_get_settings();
 
 		if ( '' === $settings['instance_id'] || '' === $settings['token'] ) {
-			self::set_notice( 'error', __( 'Salve o Instance ID e o Token antes de testar a conexão.', 'wppapi-woocommerce' ) );
+			self::set_notice( 'error', __( 'Salve o Instance ID e o Token antes de testar a conexão.', 'wppapi-for-woocommerce' ) );
 			self::redirect();
 		}
 
@@ -133,7 +133,7 @@ class WPPAPI_WC_Settings {
 				'success',
 				sprintf(
 					/* translators: 1: código HTTP, 2: corpo da resposta. */
-					__( 'Conexão bem-sucedida (HTTP %1$d). Resposta: %2$s', 'wppapi-woocommerce' ),
+					__( 'Conexão bem-sucedida (HTTP %1$d). Resposta: %2$s', 'wppapi-for-woocommerce' ),
 					$result['code'],
 					wppapi_wc_str_limit( $result['body'] )
 				)
@@ -143,7 +143,7 @@ class WPPAPI_WC_Settings {
 				'error',
 				sprintf(
 					/* translators: %s: mensagem de erro. */
-					__( 'Falha na conexão: %s', 'wppapi-woocommerce' ),
+					__( 'Falha na conexão: %s', 'wppapi-for-woocommerce' ),
 					wppapi_wc_str_limit( $result['error'] )
 				)
 			);
@@ -157,13 +157,13 @@ class WPPAPI_WC_Settings {
 	 */
 	public static function handle_clear_log() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Permissão negada.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Permissão negada.', 'wppapi-for-woocommerce' ) );
 		}
 		check_admin_referer( 'wppapi_wc_clear_log' );
 
 		delete_option( 'wppapi_wc_log' );
 
-		self::set_notice( 'success', __( 'Log limpo.', 'wppapi-woocommerce' ) );
+		self::set_notice( 'success', __( 'Log limpo.', 'wppapi-for-woocommerce' ) );
 		self::redirect();
 	}
 
@@ -172,7 +172,7 @@ class WPPAPI_WC_Settings {
 	 */
 	public static function render_page() {
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
-			wp_die( esc_html__( 'Permissão negada.', 'wppapi-woocommerce' ) );
+			wp_die( esc_html__( 'Permissão negada.', 'wppapi-for-woocommerce' ) );
 		}
 
 		$settings = wppapi_wc_get_settings();
@@ -187,13 +187,13 @@ class WPPAPI_WC_Settings {
 		if ( '' !== $settings['token'] ) {
 			$token_hint = sprintf(
 				/* translators: %s: últimos 4 caracteres do token. */
-				__( 'Token atual: ••••%s — deixe o campo em branco para mantê-lo.', 'wppapi-woocommerce' ),
+				__( 'Token atual: ••••%s — deixe o campo em branco para mantê-lo.', 'wppapi-for-woocommerce' ),
 				substr( $settings['token'], -4 )
 			);
 		}
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'WPPAPI para WooCommerce', 'wppapi-woocommerce' ); ?></h1>
+			<h1><?php esc_html_e( 'WPPAPI para WooCommerce', 'wppapi-for-woocommerce' ); ?></h1>
 
 			<?php if ( $notice ) : ?>
 				<div class="notice notice-<?php echo esc_attr( $notice['type'] ); ?> is-dismissible">
@@ -205,23 +205,23 @@ class WPPAPI_WC_Settings {
 				<input type="hidden" name="action" value="wppapi_wc_save_settings" />
 				<?php wp_nonce_field( 'wppapi_wc_save_settings' ); ?>
 
-				<h2><?php esc_html_e( 'Conexão com a WPPAPI', 'wppapi-woocommerce' ); ?></h2>
+				<h2><?php esc_html_e( 'Conexão com a WPPAPI', 'wppapi-for-woocommerce' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr>
-						<th scope="row"><label for="wppapi_base_url"><?php esc_html_e( 'Base URL', 'wppapi-woocommerce' ); ?></label></th>
+						<th scope="row"><label for="wppapi_base_url"><?php esc_html_e( 'Base URL', 'wppapi-for-woocommerce' ); ?></label></th>
 						<td>
 							<input type="url" id="wppapi_base_url" name="base_url" value="<?php echo esc_attr( $settings['base_url'] ); ?>" class="regular-text" />
-							<p class="description"><?php esc_html_e( 'Padrão: https://api.wpp-api.com', 'wppapi-woocommerce' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Padrão: https://api.wpp-api.com', 'wppapi-for-woocommerce' ); ?></p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="wppapi_instance_id"><?php esc_html_e( 'Instance ID', 'wppapi-woocommerce' ); ?></label></th>
+						<th scope="row"><label for="wppapi_instance_id"><?php esc_html_e( 'Instance ID', 'wppapi-for-woocommerce' ); ?></label></th>
 						<td>
 							<input type="text" id="wppapi_instance_id" name="instance_id" value="<?php echo esc_attr( $settings['instance_id'] ); ?>" class="regular-text" />
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="wppapi_token"><?php esc_html_e( 'Token', 'wppapi-woocommerce' ); ?></label></th>
+						<th scope="row"><label for="wppapi_token"><?php esc_html_e( 'Token', 'wppapi-for-woocommerce' ); ?></label></th>
 						<td>
 							<input type="password" id="wppapi_token" name="token" value="" class="regular-text" autocomplete="new-password" />
 							<?php if ( '' !== $token_hint ) : ?>
@@ -231,8 +231,8 @@ class WPPAPI_WC_Settings {
 					</tr>
 				</table>
 
-				<h2><?php esc_html_e( 'Eventos e mensagens', 'wppapi-woocommerce' ); ?></h2>
-				<p><?php esc_html_e( 'Placeholders disponíveis: {nome}, {pedido}, {total}, {rastreio}.', 'wppapi-woocommerce' ); ?></p>
+				<h2><?php esc_html_e( 'Eventos e mensagens', 'wppapi-for-woocommerce' ); ?></h2>
+				<p><?php esc_html_e( 'Placeholders disponíveis: {nome}, {pedido}, {total}, {rastreio}.', 'wppapi-for-woocommerce' ); ?></p>
 				<table class="form-table" role="presentation">
 					<?php foreach ( $labels as $key => $label ) : ?>
 						<tr>
@@ -240,50 +240,50 @@ class WPPAPI_WC_Settings {
 							<td>
 								<label>
 									<input type="checkbox" name="events[<?php echo esc_attr( $key ); ?>][enabled]" value="1" <?php checked( $settings['events'][ $key ]['enabled'], 'yes' ); ?> />
-									<?php esc_html_e( 'Ativo', 'wppapi-woocommerce' ); ?>
+									<?php esc_html_e( 'Ativo', 'wppapi-for-woocommerce' ); ?>
 								</label>
 								<br /><br />
 								<textarea name="events[<?php echo esc_attr( $key ); ?>][template]" rows="3" class="large-text"><?php echo esc_textarea( $settings['events'][ $key ]['template'] ); ?></textarea>
 								<?php if ( 'shipped' === $key ) : ?>
-									<p class="description"><?php esc_html_e( 'Disparado pelo botão "Salvar e notificar envio" na tela do pedido.', 'wppapi-woocommerce' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Disparado pelo botão "Salvar e notificar envio" na tela do pedido.', 'wppapi-for-woocommerce' ); ?></p>
 								<?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
 				</table>
 
-				<h2><?php esc_html_e( 'Opt-in (LGPD)', 'wppapi-woocommerce' ); ?></h2>
+				<h2><?php esc_html_e( 'Opt-in (LGPD)', 'wppapi-for-woocommerce' ); ?></h2>
 				<table class="form-table" role="presentation">
 					<tr>
-						<th scope="row"><label for="wppapi_optin_label"><?php esc_html_e( 'Texto do checkbox no checkout', 'wppapi-woocommerce' ); ?></label></th>
+						<th scope="row"><label for="wppapi_optin_label"><?php esc_html_e( 'Texto do checkbox no checkout', 'wppapi-for-woocommerce' ); ?></label></th>
 						<td>
 							<input type="text" id="wppapi_optin_label" name="optin_label" value="<?php echo esc_attr( $settings['optin_label'] ); ?>" class="large-text" />
-							<p class="description"><?php esc_html_e( 'Nenhuma mensagem é enviada sem o opt-in do cliente.', 'wppapi-woocommerce' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Nenhuma mensagem é enviada sem o opt-in do cliente.', 'wppapi-for-woocommerce' ); ?></p>
 						</td>
 					</tr>
 				</table>
 
-				<?php submit_button( __( 'Salvar configurações', 'wppapi-woocommerce' ) ); ?>
+				<?php submit_button( __( 'Salvar configurações', 'wppapi-for-woocommerce' ) ); ?>
 			</form>
 
 			<hr />
 
-			<h2><?php esc_html_e( 'Testar conexão', 'wppapi-woocommerce' ); ?></h2>
-			<p><?php esc_html_e( 'Consulta o status da instância usando as credenciais salvas. Salve as configurações antes de testar.', 'wppapi-woocommerce' ); ?></p>
+			<h2><?php esc_html_e( 'Testar conexão', 'wppapi-for-woocommerce' ); ?></h2>
+			<p><?php esc_html_e( 'Consulta o status da instância usando as credenciais salvas. Salve as configurações antes de testar.', 'wppapi-for-woocommerce' ); ?></p>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="wppapi_wc_test_connection" />
 				<?php wp_nonce_field( 'wppapi_wc_test_connection' ); ?>
-				<?php submit_button( __( 'Testar conexão', 'wppapi-woocommerce' ), 'secondary', 'submit', false ); ?>
+				<?php submit_button( __( 'Testar conexão', 'wppapi-for-woocommerce' ), 'secondary', 'submit', false ); ?>
 			</form>
 
 			<hr />
 
-			<h2><?php esc_html_e( 'Log de mensagens (últimas 50)', 'wppapi-woocommerce' ); ?></h2>
+			<h2><?php esc_html_e( 'Log de mensagens (últimas 50)', 'wppapi-for-woocommerce' ); ?></h2>
 			<?php self::render_log_table(); ?>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin-top: 10px;">
 				<input type="hidden" name="action" value="wppapi_wc_clear_log" />
 				<?php wp_nonce_field( 'wppapi_wc_clear_log' ); ?>
-				<?php submit_button( __( 'Limpar log', 'wppapi-woocommerce' ), 'secondary', 'submit', false ); ?>
+				<?php submit_button( __( 'Limpar log', 'wppapi-for-woocommerce' ), 'secondary', 'submit', false ); ?>
 			</form>
 		</div>
 		<?php
@@ -295,20 +295,20 @@ class WPPAPI_WC_Settings {
 	private static function render_log_table() {
 		$log = get_option( 'wppapi_wc_log', array() );
 		if ( ! is_array( $log ) || empty( $log ) ) {
-			echo '<p>' . esc_html__( 'Nenhuma mensagem registrada ainda.', 'wppapi-woocommerce' ) . '</p>';
+			echo '<p>' . esc_html__( 'Nenhuma mensagem registrada ainda.', 'wppapi-for-woocommerce' ) . '</p>';
 			return;
 		}
 		?>
 		<table class="widefat striped">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Data', 'wppapi-woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Pedido', 'wppapi-woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Telefone', 'wppapi-woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Evento', 'wppapi-woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Status', 'wppapi-woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'HTTP', 'wppapi-woocommerce' ); ?></th>
-					<th><?php esc_html_e( 'Erro', 'wppapi-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Data', 'wppapi-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Pedido', 'wppapi-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Telefone', 'wppapi-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Evento', 'wppapi-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Status', 'wppapi-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'HTTP', 'wppapi-for-woocommerce' ); ?></th>
+					<th><?php esc_html_e( 'Erro', 'wppapi-for-woocommerce' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>

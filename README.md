@@ -1,4 +1,4 @@
-# WPPAPI para WooCommerce
+# WPPAPI for WooCommerce
 
 Plugin WordPress que envia atualizações transacionais de pedidos do WooCommerce por WhatsApp via [WPPAPI](https://api.wpp-api.com) (API WhatsApp não-oficial gerenciada, gateway estilo Z-API por instância).
 
@@ -15,8 +15,8 @@ Plugin WordPress que envia atualizações transacionais de pedidos do WooCommerc
 ## Estrutura
 
 ```
-wppapi-woocommerce/            ← pasta do plugin (copiar para wp-content/plugins/)
-├── wppapi-woocommerce.php     ← bootstrap, header, helpers (settings, telefone, log)
+wppapi-for-woocommerce/            ← pasta do plugin (copiar para wp-content/plugins/)
+├── wppapi-for-woocommerce.php     ← bootstrap, header, helpers (settings, telefone, log)
 ├── uninstall.php              ← remove options e ações agendadas
 ├── readme.txt                 ← formato do diretório wordpress.org
 ├── includes/
@@ -25,7 +25,7 @@ wppapi-woocommerce/            ← pasta do plugin (copiar para wp-content/plugi
 │   ├── class-wppapi-wc-order.php     ← hooks de pedido, opt-in no checkout, meta box de envio
 │   └── class-wppapi-wc-settings.php  ← tela de configurações, teste de conexão, log
 └── languages/
-    └── wppapi-woocommerce.pot
+    └── wppapi-for-woocommerce.pot
 ```
 
 ## Eventos de pedido → WhatsApp
@@ -42,18 +42,18 @@ Placeholders: `{nome}`, `{pedido}`, `{total}`, `{rastreio}`.
 ## Como testar localmente
 
 1. Monte um ambiente WordPress + WooCommerce (ex.: [LocalWP](https://localwp.com), Docker `wordpress:php7.4`+ ou `wp-env`).
-2. Copie a pasta `wppapi-woocommerce/` para `wp-content/plugins/` e ative o plugin.
+2. Copie a pasta `wppapi-for-woocommerce/` para `wp-content/plugins/` e ative o plugin.
 3. Em **WooCommerce → WPPAPI**, configure Base URL, Instance ID e Token, salve e clique em **Testar conexão** (chama `GET /instances/{id}/token/_/status`).
 4. Crie um pedido de teste marcando o opt-in no checkout e com um telefone de cobrança válido.
-5. Acompanhe os envios agendados em **WooCommerce → Status → Scheduled Actions** (grupo `wppapi-woocommerce`) e o resultado no **log** da tela de configurações.
+5. Acompanhe os envios agendados em **WooCommerce → Status → Scheduled Actions** (grupo `wppapi-for-woocommerce`) e o resultado no **log** da tela de configurações.
 6. Para o evento "enviado", abra o pedido e use a meta box **WhatsApp (WPPAPI) — Envio**.
 
 Dica: sem credenciais reais, aponte a Base URL para um mock (ex.: `wp-cli eval` + `wp_remote_post` interceptável ou um servidor local que responda 200) para validar o fluxo de fila, retry e log.
 
 ## Regenerar o .pot
 
-O arquivo `languages/wppapi-woocommerce.pot` lista todas as strings traduzíveis (pt-BR inline via `__()`/`esc_html__()` etc.). Para regenerar com o WP-CLI:
+O arquivo `languages/wppapi-for-woocommerce.pot` lista todas as strings traduzíveis (pt-BR inline via `__()`/`esc_html__()` etc.). Para regenerar com o WP-CLI:
 
 ```bash
-wp i18n make-pot wppapi-woocommerce wppapi-woocommerce/languages/wppapi-woocommerce.pot
+wp i18n make-pot wppapi-for-woocommerce wppapi-for-woocommerce/languages/wppapi-for-woocommerce.pot
 ```

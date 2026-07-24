@@ -14,5 +14,5 @@ jobs:
       - name: Plugin Check (PCP)
         uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: wppapi-woocommerce
-          slug: wppapi-woocommerce
+          build-dir: wppapi-for-woocommerce
+          slug: wppapi-for-woocommerce

@@ -1,9 +1,9 @@
-# WPPAPI para WooCommerce - strings traduzíveis.
+# WPPAPI for WooCommerce - strings traduzíveis.
 # Copyright (C) 2026 IPRoute Tecnologia
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPPAPI para WooCommerce 1.0.0\n"
+"Project-Id-Version: WPPAPI for WooCommerce 1.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/IPRoute-Tecnologia/wppapi-woocommerce/issues\n"
 "POT-Creation-Date: 2026-07-23 00:00:00+00:00\n"
 "MIME-Version: 1.0\n"
@@ -12,9 +12,9 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Domain: wppapi-woocommerce\n"
+"X-Domain: wppapi-for-woocommerce\n"
 
-#: wppapi-woocommerce.php:92
+#: wppapi-for-woocommerce.php:92
 msgid "Aceito receber atualizações do pedido por WhatsApp"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Conexão com a WPPAPI"
 msgstr ""
 
-#: wppapi-woocommerce.php:77
+#: wppapi-for-woocommerce.php:77
 msgid "Configurações"
 msgstr ""
 
@@ -139,19 +139,19 @@ msgstr ""
 msgid "O código é salvo ao atualizar o pedido. O botão salva o valor digitado e enfileira a mensagem do evento \"Pedido enviado\" (somente se houver opt-in)."
 msgstr ""
 
-#: wppapi-woocommerce.php:100
+#: wppapi-for-woocommerce.php:100
 msgid "Olá {nome}! O pagamento do seu pedido #{pedido} ({total}) foi aprovado. Já estamos preparando tudo!"
 msgstr ""
 
-#: wppapi-woocommerce.php:96
+#: wppapi-for-woocommerce.php:96
 msgid "Olá {nome}! Recebemos seu pedido #{pedido} no valor de {total}. Assim que o pagamento for confirmado, avisamos por aqui."
 msgstr ""
 
-#: wppapi-woocommerce.php:108
+#: wppapi-for-woocommerce.php:108
 msgid "Olá {nome}! Seu pedido #{pedido} foi concluído. Obrigado pela compra!"
 msgstr ""
 
-#: wppapi-woocommerce.php:104
+#: wppapi-for-woocommerce.php:104
 msgid "Olá {nome}! Seu pedido #{pedido} foi enviado. Código de rastreio: {rastreio}."
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Padrão: https://api.wpp-api.com"
 msgstr ""
 
-#: wppapi-woocommerce.php:143
+#: wppapi-for-woocommerce.php:143
 msgid "Pagamento aprovado"
 msgstr ""
 
@@ -175,15 +175,15 @@ msgstr ""
 msgid "Pedido"
 msgstr ""
 
-#: wppapi-woocommerce.php:145
+#: wppapi-for-woocommerce.php:145
 msgid "Pedido concluído"
 msgstr ""
 
-#: wppapi-woocommerce.php:142
+#: wppapi-for-woocommerce.php:142
 msgid "Pedido criado"
 msgstr ""
 
-#: wppapi-woocommerce.php:144
+#: wppapi-for-woocommerce.php:144
 msgid "Pedido enviado"
 msgstr ""
 
@@ -272,7 +272,7 @@ msgstr ""
 msgid "WPPAPI para WooCommerce"
 msgstr ""
 
-#: wppapi-woocommerce.php:67
+#: wppapi-for-woocommerce.php:67
 msgid "WPPAPI para WooCommerce requer o plugin WooCommerce ativo para funcionar."
 msgstr ""
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       WPPAPI para WooCommerce
+ * Plugin Name:       WPPAPI for WooCommerce
  * Plugin URI:        https://github.com/IPRoute-Tecnologia/wppapi-woocommerce
  * Description:       Envia atualizações transacionais de pedidos do WooCommerce por WhatsApp via WPPAPI, com opt-in LGPD, envio assíncrono com retry e log de mensagens.
  * Version:           1.0.0
@@ -11,7 +11,7 @@
  * Author URI:        https://github.com/IPRoute-Tecnologia
  * License:           GPL-2.0+
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       wppapi-woocommerce
+ * Text Domain:       wppapi-for-woocommerce
  * Domain Path:       /languages
  * WC requires at least: 8.0
  * WC tested up to:      9.4
@@ -39,7 +39,7 @@ function wppapi_wc_declare_hpos_compatibility() {
  */
 add_action( 'plugins_loaded', 'wppapi_wc_init' );
 function wppapi_wc_init() {
-	load_plugin_textdomain( 'wppapi-woocommerce', false, dirname( plugin_basename( WPPAPI_WC_FILE ) ) . '/languages' );
+	load_plugin_textdomain( 'wppapi-for-woocommerce', false, dirname( plugin_basename( WPPAPI_WC_FILE ) ) . '/languages' );
 
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'wppapi_wc_missing_woocommerce_notice' );
@@ -64,7 +64,7 @@ function wppapi_wc_missing_woocommerce_notice() {
 		return;
 	}
 	echo '<div class="notice notice-error"><p>';
-	echo esc_html__( 'WPPAPI para WooCommerce requer o plugin WooCommerce ativo para funcionar.', 'wppapi-woocommerce' );
+	echo esc_html__( 'WPPAPI para WooCommerce requer o plugin WooCommerce ativo para funcionar.', 'wppapi-for-woocommerce' );
 	echo '</p></div>';
 }
 
@@ -73,8 +73,8 @@ function wppapi_wc_missing_woocommerce_notice() {
  */
 add_filter( 'plugin_action_links_' . plugin_basename( WPPAPI_WC_FILE ), 'wppapi_wc_action_links' );
 function wppapi_wc_action_links( $links ) {
-	$url   = admin_url( 'admin.php?page=wppapi-woocommerce' );
-	$label = esc_html__( 'Configurações', 'wppapi-woocommerce' );
+	$url   = admin_url( 'admin.php?page=wppapi-for-woocommerce' );
+	$label = esc_html__( 'Configurações', 'wppapi-for-woocommerce' );
 	array_unshift( $links, '<a href="' . esc_url( $url ) . '">' . $label . '</a>' );
 	return $links;
 }
@@ -89,23 +89,23 @@ function wppapi_wc_default_settings() {
 		'base_url'    => 'https://api.wpp-api.com',
 		'instance_id' => '',
 		'token'       => '',
-		'optin_label' => __( 'Aceito receber atualizações do pedido por WhatsApp', 'wppapi-woocommerce' ),
+		'optin_label' => __( 'Aceito receber atualizações do pedido por WhatsApp', 'wppapi-for-woocommerce' ),
 		'events'      => array(
 			'created'    => array(
 				'enabled'  => 'yes',
-				'template' => __( 'Olá {nome}! Recebemos seu pedido #{pedido} no valor de {total}. Assim que o pagamento for confirmado, avisamos por aqui.', 'wppapi-woocommerce' ),
+				'template' => __( 'Olá {nome}! Recebemos seu pedido #{pedido} no valor de {total}. Assim que o pagamento for confirmado, avisamos por aqui.', 'wppapi-for-woocommerce' ),
 			),
 			'processing' => array(
 				'enabled'  => 'yes',
-				'template' => __( 'Olá {nome}! O pagamento do seu pedido #{pedido} ({total}) foi aprovado. Já estamos preparando tudo!', 'wppapi-woocommerce' ),
+				'template' => __( 'Olá {nome}! O pagamento do seu pedido #{pedido} ({total}) foi aprovado. Já estamos preparando tudo!', 'wppapi-for-woocommerce' ),
 			),
 			'shipped'    => array(
 				'enabled'  => 'yes',
-				'template' => __( 'Olá {nome}! Seu pedido #{pedido} foi enviado. Código de rastreio: {rastreio}.', 'wppapi-woocommerce' ),
+				'template' => __( 'Olá {nome}! Seu pedido #{pedido} foi enviado. Código de rastreio: {rastreio}.', 'wppapi-for-woocommerce' ),
 			),
 			'completed'  => array(
 				'enabled'  => 'yes',
-				'template' => __( 'Olá {nome}! Seu pedido #{pedido} foi concluído. Obrigado pela compra!', 'wppapi-woocommerce' ),
+				'template' => __( 'Olá {nome}! Seu pedido #{pedido} foi concluído. Obrigado pela compra!', 'wppapi-for-woocommerce' ),
 			),
 		),
 	);
@@ -139,10 +139,10 @@ function wppapi_wc_get_settings() {
  */
 function wppapi_wc_event_labels() {
 	return array(
-		'created'    => __( 'Pedido criado', 'wppapi-woocommerce' ),
-		'processing' => __( 'Pagamento aprovado', 'wppapi-woocommerce' ),
-		'shipped'    => __( 'Pedido enviado', 'wppapi-woocommerce' ),
-		'completed'  => __( 'Pedido concluído', 'wppapi-woocommerce' ),
+		'created'    => __( 'Pedido criado', 'wppapi-for-woocommerce' ),
+		'processing' => __( 'Pagamento aprovado', 'wppapi-for-woocommerce' ),
+		'shipped'    => __( 'Pedido enviado', 'wppapi-for-woocommerce' ),
+		'completed'  => __( 'Pedido concluído', 'wppapi-for-woocommerce' ),
 	);
 }
 

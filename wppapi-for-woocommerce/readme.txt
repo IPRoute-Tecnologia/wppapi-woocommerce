@@ -1,4 +1,4 @@
-=== WPPAPI para WooCommerce ===
+=== WPPAPI for WooCommerce ===
 Contributors: iproute-tecnologia
 Tags: whatsapp, woocommerce, order notifications, wppapi, lgpd
 Requires at least: 6.0
@@ -14,7 +14,7 @@ Transactional WooCommerce order updates via WhatsApp (WPPAPI): created, paid, sh
 
 == Description ==
 
-**WPPAPI para WooCommerce** sends order notifications via WhatsApp using the managed [WPPAPI](https://api.wpp-api.com) API (Z-API-style per-instance gateway). The plugin UI is in Brazilian Portuguese; this readme follows the WordPress.org directory guidelines in English.
+**WPPAPI for WooCommerce** sends order notifications via WhatsApp using the managed [WPPAPI](https://api.wpp-api.com) API (Z-API-style per-instance gateway). The plugin UI is in Brazilian Portuguese; this readme follows the WordPress.org directory guidelines in English.
 
 The plugin is **transactional by design**: it only sends order updates to customers who explicitly opted in at checkout. This keeps your store aligned with the Brazilian LGPD and protects your WhatsApp number from spam-related bans.
 
@@ -42,7 +42,7 @@ Each event can be enabled/disabled individually and has an editable message temp
 
 == Installation ==
 
-1. Upload the `wppapi-woocommerce` folder to `/wp-content/plugins/` (or install the .zip from the Plugins screen).
+1. Upload the `wppapi-for-woocommerce` folder to `/wp-content/plugins/` (or install the .zip from the Plugins screen).
 2. Activate the plugin. WooCommerce 8.0+ must be active.
 3. Go to **WooCommerce → WPPAPI** and enter the Base URL (default `https://api.wpp-api.com`), Instance ID and Token of your WPPAPI instance.
 4. Click **Save settings** and then **Test connection**.

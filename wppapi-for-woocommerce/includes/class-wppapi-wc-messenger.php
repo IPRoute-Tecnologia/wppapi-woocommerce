@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 class WPPAPI_WC_Messenger {
 
 	const HOOK        = 'wppapi_wc_send_message';
-	const GROUP       = 'wppapi-woocommerce';
+	const GROUP       = 'wppapi-for-woocommerce';
 	const MAX_RETRIES = 3;
 
 	/**
@@ -90,8 +90,8 @@ class WPPAPI_WC_Messenger {
 				array(
 					'order_id' => $order_id,
 					'event'    => $event_label,
-					'status'   => __( 'Falha', 'wppapi-woocommerce' ),
-					'error'    => __( 'Pedido não encontrado.', 'wppapi-woocommerce' ),
+					'status'   => __( 'Falha', 'wppapi-for-woocommerce' ),
+					'error'    => __( 'Pedido não encontrado.', 'wppapi-for-woocommerce' ),
 				)
 			);
 			return;
@@ -103,7 +103,7 @@ class WPPAPI_WC_Messenger {
 				array(
 					'order_id' => $order_id,
 					'event'    => $event_label,
-					'status'   => __( 'Ignorado (sem opt-in)', 'wppapi-woocommerce' ),
+					'status'   => __( 'Ignorado (sem opt-in)', 'wppapi-for-woocommerce' ),
 				)
 			);
 			return;
@@ -115,8 +115,8 @@ class WPPAPI_WC_Messenger {
 				array(
 					'order_id' => $order_id,
 					'event'    => $event_label,
-					'status'   => __( 'Falha', 'wppapi-woocommerce' ),
-					'error'    => __( 'Telefone de cobrança ausente ou em formato não reconhecido.', 'wppapi-woocommerce' ),
+					'status'   => __( 'Falha', 'wppapi-for-woocommerce' ),
+					'error'    => __( 'Telefone de cobrança ausente ou em formato não reconhecido.', 'wppapi-for-woocommerce' ),
 				)
 			);
 			return;
@@ -130,7 +130,7 @@ class WPPAPI_WC_Messenger {
 					'order_id' => $order_id,
 					'phone'    => $phone,
 					'event'    => $event_label,
-					'status'   => __( 'Ignorado (template vazio)', 'wppapi-woocommerce' ),
+					'status'   => __( 'Ignorado (template vazio)', 'wppapi-for-woocommerce' ),
 				)
 			);
 			return;
@@ -145,7 +145,7 @@ class WPPAPI_WC_Messenger {
 					'order_id'      => $order_id,
 					'phone'         => $phone,
 					'event'         => $event_label,
-					'status'        => __( 'Enviado', 'wppapi-woocommerce' ),
+					'status'        => __( 'Enviado', 'wppapi-for-woocommerce' ),
 					'response_code' => $result['code'],
 				)
 			);
@@ -161,7 +161,7 @@ class WPPAPI_WC_Messenger {
 					'event'         => $event_label,
 					'status'        => sprintf(
 						/* translators: %d: minutos até a próxima tentativa. */
-						__( 'Falha; nova tentativa em %d min', 'wppapi-woocommerce' ),
+						__( 'Falha; nova tentativa em %d min', 'wppapi-for-woocommerce' ),
 						(int) ( $delay / 60 )
 					),
 					'response_code' => $result['code'],
@@ -175,7 +175,7 @@ class WPPAPI_WC_Messenger {
 					'order_id'      => $order_id,
 					'phone'         => $phone,
 					'event'         => $event_label,
-					'status'        => __( 'Falha definitiva', 'wppapi-woocommerce' ),
+					'status'        => __( 'Falha definitiva', 'wppapi-for-woocommerce' ),
 					'response_code' => $result['code'],
 					'error'         => wppapi_wc_str_limit( $result['error'] ),
 				)
