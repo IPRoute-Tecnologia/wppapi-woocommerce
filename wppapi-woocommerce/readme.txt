@@ -10,83 +10,83 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Sends transactional WooCommerce order updates to customers via WhatsApp (WPPAPI), with LGPD opt-in at checkout, async sending with retry and message log.
+Transactional WooCommerce order updates via WhatsApp (WPPAPI): created, paid, shipped and completed — with LGPD opt-in and retry.
 
 == Description ==
 
-O **WPPAPI para WooCommerce** envia notificações de pedido por WhatsApp usando a API gerenciada da [WPPAPI](https://api.wpp-api.com) (gateway estilo Z-API por instância).
+**WPPAPI para WooCommerce** sends order notifications via WhatsApp using the managed [WPPAPI](https://api.wpp-api.com) API (Z-API-style per-instance gateway). The plugin UI is in Brazilian Portuguese; this readme follows the WordPress.org directory guidelines in English.
 
-O plugin é **transacional por design**: só envia atualizações de pedido para clientes que deram opt-in explícito no checkout. Isso mantém sua loja em conformidade com a LGPD e protege o seu número de banimento por spam.
+The plugin is **transactional by design**: it only sends order updates to customers who explicitly opted in at checkout. This keeps your store aligned with the Brazilian LGPD and protects your WhatsApp number from spam-related bans.
 
-= Eventos disponíveis =
+= Available events =
 
-Cada evento pode ser ativado/desativado individualmente e tem template de mensagem editável:
+Each event can be enabled/disabled individually and has an editable message template:
 
-1. **Pedido criado** — disparado quando um novo pedido é registrado.
-2. **Pagamento aprovado** — quando o pedido muda para o status "Processando".
-3. **Pedido enviado** — disparado pela meta box "WhatsApp (WPPAPI) — Envio" na tela do pedido: informe o código de rastreio e clique em "Salvar e notificar envio". Se o pedido já tiver rastreio de outro plugin (`_tracking_code` ou WooCommerce Shipment Tracking), ele é usado como fallback no placeholder `{rastreio}`.
-4. **Pedido concluído** — quando o pedido muda para o status "Concluído".
+1. **Order created** — fired when a new order is placed.
+2. **Payment approved** — when the order moves to "Processing".
+3. **Order shipped** — fired from the "WhatsApp (WPPAPI) — Envio" meta box on the order screen: enter the tracking code and click "Salvar e notificar envio". If the order already has a tracking code from another plugin (`_tracking_code` or WooCommerce Shipment Tracking), it is used as fallback for the `{rastreio}` placeholder.
+4. **Order completed** — when the order moves to "Completed".
 
 = Placeholders =
 
-`{nome}` (primeiro nome do cliente), `{pedido}` (número do pedido), `{total}` (valor formatado com moeda), `{rastreio}` (código de rastreio).
+`{nome}` (customer first name), `{pedido}` (order number), `{total}` (formatted order total), `{rastreio}` (tracking code).
 
-= Recursos =
+= Features =
 
-* Opt-in LGPD no checkout ("Aceito receber atualizações do pedido por WhatsApp"), salvo no pedido e visível no admin. **Nenhuma mensagem sai sem opt-in.**
-* Normalização automática do telefone de cobrança para E.164 brasileiro (55 + DDD + número, com tratamento do nono dígito).
-* Envio assíncrono via Action Scheduler (do próprio WooCommerce), com fallback para wp-cron, e retry com backoff de 5 min, 30 min e 2 h.
-* Botão "Testar conexão" que consulta o status da instância.
-* Log das últimas 50 mensagens (data, pedido, telefone, evento, status, código HTTP, erro).
-* Compatível com HPOS (Custom Order Tables). Token armazenado em option e nunca exibido em claro (apenas os últimos 4 caracteres).
+* LGPD opt-in checkbox at checkout ("Aceito receber atualizações do pedido por WhatsApp"), stored on the order and visible in the admin. **No message is sent without opt-in.**
+* Automatic normalization of the billing phone to Brazilian E.164 (55 + area code + number, with ninth-digit handling).
+* Async sending via Action Scheduler (bundled with WooCommerce), with wp-cron fallback, and retries with 5 min / 30 min / 2 h backoff.
+* "Test connection" button that queries the instance status.
+* Log of the last 50 messages (time, order, phone, event, status, HTTP code, error).
+* HPOS (Custom Order Tables) compatible. The token is stored in an option and never displayed in plain text (last 4 characters only).
 
 == Installation ==
 
-1. Faça upload da pasta `wppapi-woocommerce` para `/wp-content/plugins/` (ou instale o .zip pela tela de plugins).
-2. Ative o plugin. O WooCommerce 8.0+ precisa estar ativo.
-3. Vá em **WooCommerce → WPPAPI**, informe Base URL (padrão `https://api.wpp-api.com`), Instance ID e Token da sua instância WPPAPI.
-4. Clique em **Salvar configurações** e depois em **Testar conexão**.
-5. Ajuste os templates de mensagem de cada evento e salve.
+1. Upload the `wppapi-woocommerce` folder to `/wp-content/plugins/` (or install the .zip from the Plugins screen).
+2. Activate the plugin. WooCommerce 8.0+ must be active.
+3. Go to **WooCommerce → WPPAPI** and enter the Base URL (default `https://api.wpp-api.com`), Instance ID and Token of your WPPAPI instance.
+4. Click **Save settings** and then **Test connection**.
+5. Adjust the message template of each event and save.
 
 == Frequently Asked Questions ==
 
-= O plugin pode ser usado para marketing/disparos em massa? =
+= Can this plugin be used for marketing blasts? =
 
-Não. O plugin é transacional por design: só envia atualizações de pedido para clientes que deram opt-in no checkout. Isso protege seu número de banimento por spam e mantém a loja em conformidade com a LGPD.
+No. The plugin is transactional by design: it only sends order updates to customers who opted in at checkout. This protects your number from spam bans and keeps the store aligned with LGPD.
 
-= Como funciona o evento "Pedido enviado"? =
+= How does the "Order shipped" event work? =
 
-O WooCommerce não tem um status "enviado" nativo. Por isso o plugin adiciona a meta box **"WhatsApp (WPPAPI) — Envio"** na tela do pedido: informe o código de rastreio e clique em **"Salvar e notificar envio"**. O código fica salvo no pedido (meta `_wppapi_tracking_code`) e a mensagem do evento é enfileirada. Se você usa outro plugin de rastreio (`_tracking_code` ou WooCommerce Shipment Tracking), o código dele é usado como fallback no placeholder `{rastreio}`.
+WooCommerce has no native "shipped" status. The plugin adds a **"WhatsApp (WPPAPI) — Envio"** meta box on the order screen: enter the tracking code and click **"Salvar e notificar envio"**. The code is stored on the order (`_wppapi_tracking_code` meta) and the event message is queued. If you use another tracking plugin (`_tracking_code` or WooCommerce Shipment Tracking), its code is used as fallback for the `{rastreio}` placeholder.
 
-= E se o cliente não marcar o opt-in? =
+= What if the customer does not check the opt-in? =
 
-Nenhuma mensagem é enviada para aquele pedido. O log registra o evento como "Ignorado (sem opt-in)".
+No message is sent for that order. The log records the event as "Ignored (no opt-in)".
 
-= O que acontece se a API falhar? =
+= What happens if the API call fails? =
 
-O envio é assíncrono (Action Scheduler, com fallback para wp-cron). Em caso de falha, o plugin tenta de novo até 3 vezes, com intervalos de 5 minutos, 30 minutos e 2 horas. Todas as tentativas ficam registradas no log.
+Sending is asynchronous (Action Scheduler, with wp-cron fallback). On failure the plugin retries up to 3 times, with 5 minute, 30 minute and 2 hour intervals. Every attempt is recorded in the log.
 
-= Quais formatos de telefone são aceitos? =
+= Which phone formats are accepted? =
 
-O telefone de cobrança do pedido é normalizado para E.164 sem "+": entradas com ou sem DDI 55 e com ou sem o nono dígito são convertidas para 55 + DDD + número (celulares com 9 dígitos).
+The order billing phone is normalized to E.164 without "+": inputs with or without the 55 country code and with or without the ninth digit are converted to 55 + area code + number (9-digit mobiles).
 
-= O token fica seguro? =
+= Is the token stored safely? =
 
-O token é salvo em uma option do WordPress, enviado apenas no header `Client-Token` (nunca na URL) e nunca é exibido em claro na tela — apenas os últimos 4 caracteres.
+The token is saved in a WordPress option, sent only in the `Client-Token` header (never in the URL) and never displayed in plain text — only the last 4 characters.
 
 == Screenshots ==
 
-1. Tela de configurações (WooCommerce → WPPAPI): credenciais, teste de conexão, templates dos 4 eventos e texto do opt-in.
-2. Checkbox de opt-in LGPD no checkout.
-3. Meta box "WhatsApp (WPPAPI) — Envio" na tela do pedido, com campo de rastreio e botão "Salvar e notificar envio".
-4. Log das últimas 50 mensagens com status, código HTTP e erro.
+1. Settings screen (WooCommerce → WPPAPI): credentials, connection test, templates for the 4 events and opt-in text.
+2. LGPD opt-in checkbox at checkout.
+3. "WhatsApp (WPPAPI) — Envio" meta box on the order screen, with tracking field and "Salvar e notificar envio" button.
+4. Log of the last 50 messages with status, HTTP code and error.
 
 == Changelog ==
 
 = 1.0.0 =
-* Versão inicial: 4 eventos de pedido (criado, pagamento aprovado, enviado, concluído), templates editáveis com placeholders, opt-in LGPD no checkout, envio assíncrono com retry (Action Scheduler com fallback wp-cron), teste de conexão, log das últimas 50 mensagens e compatibilidade HPOS.
+* Initial release: 4 order events (created, payment approved, shipped, completed), editable templates with placeholders, LGPD opt-in at checkout, async sending with retry (Action Scheduler with wp-cron fallback), connection test, log of the last 50 messages and HPOS compatibility.
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-Versão inicial.
+Initial release.
