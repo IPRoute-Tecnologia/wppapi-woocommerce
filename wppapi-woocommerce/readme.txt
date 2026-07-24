@@ -2,7 +2,7 @@
 Contributors: iproute-tecnologia
 Tags: whatsapp, woocommerce, order notifications, wppapi, lgpd
 Requires at least: 6.0
-Tested up to: 6.8
+Tested up to: 7.0
 Requires PHP: 7.4
 WC requires at least: 8.0
 WC tested up to: 9.4
@@ -10,7 +10,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Envia atualizações transacionais de pedidos do WooCommerce por WhatsApp via WPPAPI, com opt-in LGPD, envio assíncrono com retry e log.
+Sends transactional WooCommerce order updates to customers via WhatsApp (WPPAPI), with LGPD opt-in at checkout, async sending with retry and message log.
 
 == Description ==
 
