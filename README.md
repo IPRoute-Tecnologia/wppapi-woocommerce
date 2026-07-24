@@ -57,3 +57,9 @@ O arquivo `languages/wppapi-for-woocommerce.pot` lista todas as strings traduzí
 ```bash
 wp i18n make-pot wppapi-for-woocommerce wppapi-for-woocommerce/languages/wppapi-for-woocommerce.pot
 ```
+
+## Distribuição (wordpress.org)
+
+- Plugin Check (PCP) roda em CI: **0 erros**. Os únicos warnings são os termos de trademark "wp"/"woocommerce" no slug `wppapi-for-woocommerce` — inerentes à marca WPPAPI.
+- Decisão registrada (issue #15): manter o slug de marca `wppapi-for-woocommerce` na submissão e argumentar trademark próprio na revisão humana; fallback caso o diretório rejeite: submeter como `whatsapp-order-notifications-for-woocommerce` (sem "wp"/"woocommerce" no slug).
+- A submissão ao wordpress.org exige conta no diretório (bloqueio externo); enquanto isso, o zip oficial fica em https://wpp-api.com/downloads/wppapi-for-woocommerce.zip com guia em https://wpp-api.com/guias/whatsapp-woocommerce.
